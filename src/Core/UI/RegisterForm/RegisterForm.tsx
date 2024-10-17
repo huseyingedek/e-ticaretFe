@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from "react";
+import React, { useState } from 'react';
 import { Button, Form, Input, Modal } from "antd";
 
 const INITIAL_FORMDATA = {
@@ -11,18 +10,18 @@ const INITIAL_FORMDATA = {
     phoneNumber: "",
 };
 
-interface LoginFormProps {
+interface RegisterFormProps {
     isModalOpen: boolean;
     handleOk: () => void;
     handleCancel: () => void;
 }
 
-const RegisterForm: React.FC<LoginFormProps> = ({ isModalOpen, handleOk, handleCancel }) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({ isModalOpen, handleOk, handleCancel }) => {
     const [form] = Form.useForm();
-    const [formData, setFormData] = useState<any>(INITIAL_FORMDATA);
+    const [formData, setFormData] = useState<typeof INITIAL_FORMDATA>(INITIAL_FORMDATA);
 
-    const onSubmit = (submitData: any) => {
-        //login(submitData);
+    const onSubmit = () => {
+        //register(formData);
     };
 
     return (

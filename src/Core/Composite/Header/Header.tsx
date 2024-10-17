@@ -4,6 +4,7 @@ import { Badge } from 'antd';
 import Navigation from './Navigation';
 import LoginForm from '@/src/Core/UI/LoginForm';
 import RegisterForm from '@/src/Core/UI/RegisterForm';
+import Image from 'next/image';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,7 +45,7 @@ const Header = () => {
       <div className='flex items-center justify-between px-4 pt-5 pb-5 w-full'>
         <div className='flex items-center'>
           <a href="#">
-            <img src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-24 lg:w-36 mb-2 pt-2' />
+          <Image src="https://readymadeui.com/readymadeui.svg" alt="logo" width={144} height={36} className='w-24 lg:w-36 mb-2 pt-2' />
           </a>
         </div>
         <div className='flex-grow mx-4 hidden md:flex'>

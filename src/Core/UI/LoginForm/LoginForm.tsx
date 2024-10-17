@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from "react";
+import React, { useState } from 'react';
 import { Button, Form, Input, Modal } from "antd";
 
 const INITIAL_FORMDATA = {
@@ -15,10 +14,10 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({ isModalOpen, handleOk, handleCancel }) => {
     const [form] = Form.useForm();
-    const [formData, setFormData] = useState<any>(INITIAL_FORMDATA);
+    const [formData, setFormData] = useState<typeof INITIAL_FORMDATA>(INITIAL_FORMDATA);
 
-    const onSubmit = (submitData: any) => {
-        //login(submitData);
+    const onSubmit = () => {
+        //login(formData);
     };
 
     return (
@@ -38,7 +37,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ isModalOpen, handleOk, handleCanc
                     setFormData({ ...formData, ...allValues });
                 }}
                 onFinishFailed={() => console.log("failed")}
-
             >
                 <Form.Item
                     name="email"

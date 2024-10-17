@@ -1,5 +1,6 @@
 import React from 'react';
 import { Carousel } from 'antd';
+import Image from 'next/image';
 
 const contentStyle: React.CSSProperties = {
     height: '340px',
@@ -12,26 +13,32 @@ const contentStyle: React.CSSProperties = {
 const Slider: React.FC = () => (
     <Carousel autoplay>
         <div>
-            <img
+            <Image
                 style={contentStyle}
                 src="/images/slider/5.jpg"
-                alt="image 1"
+                alt="image 5"
+                width={800}
+                height={340}
                 className="h-full w-full object-cover"
             />
         </div>
         <div>
-            <img
+            <Image
                 style={contentStyle}
                 src="/images/slider/6.jpg"
-                alt="image 1"
+                alt="image 6"
+                width={800}
+                height={340}
                 className="h-full w-full object-cover"
             />
         </div>
         <div>
-            <img
+            <Image
                 style={contentStyle}
                 src="/images/slider/7.jpg"
                 alt="image 1"
+                width={800}
+                height={340}
                 className="h-full w-full object-cover"
             />
         </div>

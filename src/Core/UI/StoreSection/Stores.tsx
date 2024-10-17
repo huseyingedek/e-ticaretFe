@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Image from 'next/image';
 
 const StoreSection = () => {
     const stores = [
@@ -54,9 +55,11 @@ const StoreSection = () => {
             <Slider {...settings}>
                 {stores.map((store, index) => (
                     <div key={index} className='flex flex-col justify-center pb-3'>
-                        <img
+                        <Image
                             src={store.imgSrc}
                             alt={store.name}
+                            width={96}
+                            height={96}
                             className='rounded-full w-16 h-16 md:w-24 md:h-24 border-2 border-red-600 cursor-pointer'
                         />
                         <span className='mt-1 text-sm md:text-base'>{store.name}</span>
