@@ -45,7 +45,7 @@ const Header = () => {
       <div className='flex items-center justify-between px-4 pt-5 pb-5 w-full'>
         <div className='flex items-center'>
           <a href="#">
-          <Image src="https://readymadeui.com/readymadeui.svg" alt="logo" width={144} height={36} className='w-24 lg:w-36 mb-2 pt-2' />
+          <Image src="/images/gedek.jpg" alt="logo" width={144} height={36} className='w-24 lg:w-36 mb-2 pt-2' />
           </a>
         </div>
         <div className='flex-grow mx-4 hidden md:flex'>
