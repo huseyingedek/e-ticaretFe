@@ -62,7 +62,7 @@ const Header = () => {
             <LoginOutlined className='mr-1' /> <span className='hidden md:inline'>Giriş</span>
           </a>
           <span className='mx-2'>|</span>
-          <a onClick={showRegisterModal} className='flex items-center text-black hover:text-teal-400 text-lg'>
+          <a onClick={showRegisterModal} className='flex items-center text-black hover: text-lg'>
             <UserAddOutlined className='mr-1' /> <span className='hidden md:inline'>Kayıt Ol</span>
           </a>
           <span className='mx-2'>|</span>
