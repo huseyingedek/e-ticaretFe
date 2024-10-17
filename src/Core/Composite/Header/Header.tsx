@@ -5,6 +5,7 @@ import Navigation from './Navigation';
 import LoginForm from '@/src/Core/UI/LoginForm';
 import RegisterForm from '@/src/Core/UI/RegisterForm';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,9 +45,9 @@ const Header = () => {
       <Navigation />
       <div className='flex items-center justify-between px-4 pt-5 pb-5 w-full'>
         <div className='flex items-center'>
-          <a href="#">
+          <Link href="/">
           <Image src="/images/gedek.jpg" alt="logo" width={144} height={36} className='w-24 lg:w-36 mb-2 pt-2' />
-          </a>
+          </Link>
         </div>
         <div className='flex-grow mx-4 hidden md:flex'>
           <div className='flex items-center border border-gray-300 rounded-md overflow-hidden lg:w-[40%] lg:ml-[40%]'>
