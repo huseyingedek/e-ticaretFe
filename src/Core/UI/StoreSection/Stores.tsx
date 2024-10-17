@@ -5,17 +5,17 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const StoreSection = () => {
     const stores = [
-        { name: 'Mağaza 1', imgSrc: 'https://picsum.photos/200/300' },
-        { name: 'Mağaza 2', imgSrc: 'https://picsum.photos/200/300' },
-        { name: 'Mağaza 3', imgSrc: 'https://picsum.photos/200/300' },
-        { name: 'Mağaza 4', imgSrc: 'https://picsum.photos/200/300' },
-        { name: 'Mağaza 5', imgSrc: 'https://picsum.photos/200/300' },
-        { name: 'Mağaza 6', imgSrc: 'https://picsum.photos/200/300' },
-        { name: 'Mağaza 7', imgSrc: 'https://picsum.photos/200/300' },
-        { name: 'Mağaza 8', imgSrc: 'https://picsum.photos/200/300' },
-        { name: 'Mağaza 9', imgSrc: 'https://picsum.photos/200/300' },
-        { name: 'Mağaza 10', imgSrc: 'https://picsum.photos/200/300' },
-        { name: 'Mağaza 11', imgSrc: 'https://picsum.photos/200/300' },
+        { name: 'Mağaza 1', imgSrc: '/images/magza/1.png' },
+        { name: 'Mağaza 2', imgSrc: '/images/magza/2.png' },
+        { name: 'Mağaza 3', imgSrc: '/images/magza/3.png' },
+        { name: 'Mağaza 4', imgSrc: '/images/magza/4.png' },
+        { name: 'Mağaza 5', imgSrc: '/images/magza/5.png' },
+        { name: 'Mağaza 6', imgSrc: '/images/magza/6.png' },
+        { name: 'Mağaza 7', imgSrc: '/images/magza/7.png' },
+        // { name: 'Mağaza 8', imgSrc: '/images/products/6.png' },
+        // { name: 'Mağaza 9', imgSrc: '/images/products/6.png' },
+        // { name: 'Mağaza 10', imgSrc: '/images/products/6.png' },
+        // { name: 'Mağaza 11', imgSrc: '/images/products/6.png' },
     ];
 
     const settings = {
@@ -28,7 +28,7 @@ const StoreSection = () => {
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 4,
+                    slidesToShow: 3,
                     slidesToScroll: 2,
                 },
             },
@@ -42,7 +42,7 @@ const StoreSection = () => {
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                 },
             },
@@ -53,11 +53,11 @@ const StoreSection = () => {
         <div className='slider-container px-7 md:px-40'>
             <Slider {...settings}>
                 {stores.map((store, index) => (
-                    <div key={index} className='flex flex-col items-center pb-3'>
+                    <div key={index} className='flex flex-col justify-center pb-3'>
                         <img
                             src={store.imgSrc}
                             alt={store.name}
-                            className='rounded-full w-16 h-16 md:w-24 md:h-24'
+                            className='rounded-full w-16 h-16 md:w-24 md:h-24 border-2 border-red-600 cursor-pointer'
                         />
                         <span className='mt-1 text-sm md:text-base'>{store.name}</span>
                     </div>

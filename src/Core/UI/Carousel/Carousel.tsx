@@ -14,7 +14,7 @@ const Slider: React.FC = () => (
         <div>
             <img
                 style={contentStyle}
-                src="https://picsum.photos/1100/700"
+                src="/images/slider/5.jpg"
                 alt="image 1"
                 className="h-full w-full object-cover"
             />
@@ -22,7 +22,7 @@ const Slider: React.FC = () => (
         <div>
             <img
                 style={contentStyle}
-                src="https://picsum.photos/1100/700"
+                src="/images/slider/6.jpg"
                 alt="image 1"
                 className="h-full w-full object-cover"
             />
@@ -30,15 +30,7 @@ const Slider: React.FC = () => (
         <div>
             <img
                 style={contentStyle}
-                src="https://picsum.photos/1100/700"
-                alt="image 1"
-                className="h-full w-full object-cover"
-            />
-        </div>
-        <div>
-            <img
-                style={contentStyle}
-                src="https://picsum.photos/1100/700"
+                src="/images/slider/7.jpg"
                 alt="image 1"
                 className="h-full w-full object-cover"
             />
