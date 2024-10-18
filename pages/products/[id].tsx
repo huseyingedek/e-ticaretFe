@@ -1,13 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tabs, Select, Space } from 'antd';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import useProductsDetail from '@/src/Hooks/useProductsDetail';
+
+interface Product {
+    _id: string;
+    name: string;
+    price: number;
+    description: string;
+    image: string;
+    isActivated: boolean;
+    stock_quantity: number;
+    howMany: number;
+}
 
 const ProductsDetails = () => {
+    const router = useRouter();
+    const { id } = router.query;
+    const { loading, error, fetchProductDetails } = useProductsDetail();
+    const [product, setProduct] = useState<Product | null>(null);
+
+    useEffect(() => {
+        if (id) {
+            console.log(`Fetching details for product ID: ${id}`);
+            fetchProductDetails(id as string).then((fetchedProduct) => {
+                console.log('Fetched product:', fetchedProduct);
+                if (fetchedProduct) {
+                    setProduct(fetchedProduct);
+                } else {
+                    console.error('Fetched product is undefined');
+                }
+            });
+        }
+    }, [id]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+    if (!product) {
+        return <div>Ürün bulunamadı.</div>;
+    }
+
     return (
         <div className='mt-24 mb-48 px-4 md:px-16 lg:px-28'>
             <div className='flex flex-col md:flex-row'>
                 <div className='flex-1 h-auto'>
-                <img src='/images/products/5.jpg' alt='product' className='rounded-lg cursor-pointer max-w-lg w-full h-auto' />
+                    <img src={product.image} alt={product.name} className='rounded-lg cursor-pointer max-w-lg w-full h-auto' />
 
                     <div className='flex gap-x-4 pt-4 pb-5 overflow-x-auto'>
                         <Image src="/images/products/1.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
@@ -17,9 +61,9 @@ const ProductsDetails = () => {
                     </div>
                 </div>
                 <div className='md:pl-5 flex-1 mr-52 w-full'>
-                    <h1 className='text-4xl font-bold pb-3'>İPHONE 16</h1>
-                    <p className='text-lg pb-5 text-gray-500'>Lorem ipsum dolor a vel minima, neque, in esse nobis quibusdam accusamus culpa, nemo voluptatibus?</p>
-                    <span className='text-4xl'>300$</span>
+                    <h1 className='text-4xl font-bold pb-3'>{product.name}</h1>
+                    <p className='text-lg pb-5 text-gray-500'>{product.description}</p>
+                    <span className='text-4xl'>{product.price}$</span>
                     <div>
                         <h2 className='text-2xl font-semibold mt-10'>Renk</h2>
                         <div className='flex gap-x-4 mt-4'>
@@ -59,7 +103,7 @@ const ProductsDetails = () => {
                             children: (
                                 <>
                                     <h2 className='text-2xl font-semibold'>Ürün Açıklaması</h2>
-                                    <p className='text-lg mt-4 text-gray-500'>Burada ürünün uzun açıklaması yer alacak. Ürün özellikleri, avantajları ve kullanım detayları hakkında bilgi verilebilir.</p>
+                                    <p className='text-lg mt-4 text-gray-500'>{product.description}</p>
                                 </>
                             ),
                         },

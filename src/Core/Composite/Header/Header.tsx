@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LoginOutlined, UserAddOutlined, SearchOutlined, ShoppingCartOutlined, MenuOutlined } from '@ant-design/icons';
+import { LoginOutlined, UserAddOutlined, SearchOutlined, ShoppingCartOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
 import { Badge } from 'antd';
 import Navigation from './Navigation';
 import LoginForm from '@/src/Core/UI/LoginForm';
@@ -70,7 +70,7 @@ const Header = () => {
           {isClient && isAuthenticated ? (
             <>
               <Link href="/profile" className='flex items-center text-black hover:text-teal-400 text-lg'>
-                <UserAddOutlined className='mr-1' /> <span className='hidden md:inline'>Profil</span>
+                <UserOutlined className='mr-1' /> <span className='hidden md:inline'>Profil</span>
               </Link>
               <span className='mx-2'>|</span>
               <a onClick={logout} className='flex items-center text-black hover:text-teal-400 text-lg'>
