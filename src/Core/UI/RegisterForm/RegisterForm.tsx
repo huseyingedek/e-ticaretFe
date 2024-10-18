@@ -5,6 +5,7 @@ import useAuth from "@/src/Hooks/useAuth";
 const INITIAL_FORMDATA = {
     email: "",
     password: "",
+    confirmPassword: "",
     name: "",
     lastName: "",
     phone: "",

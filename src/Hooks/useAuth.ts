@@ -62,7 +62,7 @@ const useAuth = () => {
     }
   };
 
-  const register = async (submitData: { email: string; password: string; name: string; lastName: string; phone: string; }) => {
+  const register = async (submitData: { email: string; password: string; confirmPassword: string; name: string; lastName: string; phone: string; }) => {
     try {
       const response = await axios.post<RegisterResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, submitData);
       message.success(response.data.message);
