@@ -51,7 +51,7 @@ const useAuth = () => {
 
         dispatch(loginUserRedux({ token, refreshToken }));
         message.success(response.data.message);
-        router.push("/home");
+        router.push("/products/6712cb1f9bf968a897319fbb");
       } else {
         message.error("Kullanıcı bilgileri alınamadı.");
       }
