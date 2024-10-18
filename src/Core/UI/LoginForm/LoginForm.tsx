@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Modal } from 'antd';
+import { Form, Input, Button, Modal, message } from 'antd';
 import useAuth from '@/src/Hooks/useAuth';
 
 interface LoginFormProps {
@@ -12,13 +12,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ isModalOpen, handleOk, handleCanc
   const { login } = useAuth();
   const [form] = Form.useForm();
 
-  const onSubmit = (values: { email: string; password: string }) => {
-    login(values);
-    handleOk();
+  const onSubmit = async (values: { email: string; password: string }) => {
+    try {
+      await login(values);
+      message.success('Giriş başarılı!');
+      handleOk(); // Modalı kapat
+      form.resetFields(); // Formu sıfırla
+    } catch (error) {
+      message.error('Giriş sırasında bir hata oluştu. Lütfen tekrar deneyin.');
+    }
   };
 
   return (
-    <Modal visible={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
+    <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
       <Form
         form={form}
         layout="vertical"

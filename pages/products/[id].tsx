@@ -22,9 +22,9 @@ const ProductsDetails = () => {
     const [product, setProduct] = useState<Product | null>(null);
 
     useEffect(() => {
-        if (id) {
+        if (id && typeof id === 'string') {
             console.log(`Fetching details for product ID: ${id}`);
-            fetchProductDetails(id as string).then((fetchedProduct) => {
+            fetchProductDetails(id).then((fetchedProduct) => {
                 console.log('Fetched product:', fetchedProduct);
                 if (fetchedProduct) {
                     setProduct(fetchedProduct);

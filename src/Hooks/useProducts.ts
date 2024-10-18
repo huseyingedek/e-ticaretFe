@@ -21,10 +21,12 @@ const useProducts = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get<{ products: Product[] }>(`${process.env.NEXT_PUBLIC_API_URL}/api/products/listproducts`);
+                const response = await axios.get<{ products: Product[] }>(
+                    `${process.env.NEXT_PUBLIC_API_URL}/api/products/listproducts`
+                );
                 setProducts(response.data.products);
             } catch (error) {
-                console.error(error);
+                console.error("Error fetching products:", error);
                 setError("Bir hata oluştu. Lütfen tekrar deneyiniz.");
                 message.error("Bir hata oluştu. Lütfen tekrar deneyiniz.");
             } finally {
@@ -34,7 +36,6 @@ const useProducts = () => {
 
         fetchProducts();
     }, []);
-
 
     return { products, loading, error };
 };

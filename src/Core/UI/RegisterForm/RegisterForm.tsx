@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, Modal, message, Spin } from "antd";
 import useAuth from "@/src/Hooks/useAuth";
 
 const INITIAL_FORMDATA = {
@@ -21,14 +21,24 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ isModalOpen, handleOk, hand
     const { register } = useAuth();
     const [form] = Form.useForm();
     const [formData, setFormData] = useState<typeof INITIAL_FORMDATA>(INITIAL_FORMDATA);
+    const [loading, setLoading] = useState(false);
 
-    const onSubmit = () => {
-        register(formData);
-        handleOk();
+    const onSubmit = async () => {
+        setLoading(true);
+        try {
+            await register(formData);
+            message.success('Kayıt başarılı!');
+            handleOk(); // Modalı kapat
+            form.resetFields(); // Formu sıfırla
+        } catch (error) {
+            message.error('Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
-        <Modal visible={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
+        <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
             <Form
                 name="basic"
                 form={form}
@@ -101,15 +111,15 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ isModalOpen, handleOk, hand
                 <Button
                     htmlType="submit"
                     type="primary"
-                    variant="outlined"
                     size="large"
                     className="flex w-full text-center items-center justify-center mt-8"
+                    loading={loading} // Yüklenme durumu
                 >
                     Kayıt Ol
                 </Button>
             </Form>
         </Modal>
-    )
+    );
 }
 
 export default RegisterForm;
