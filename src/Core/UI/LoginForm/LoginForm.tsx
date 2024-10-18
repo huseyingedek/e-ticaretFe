@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal } from "antd";
+import { useAuth } from "@/src/Hooks/index";
 
 const INITIAL_FORMDATA = {
     email: "",
@@ -13,11 +14,12 @@ interface LoginFormProps {
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ isModalOpen, handleOk, handleCancel }) => {
+    const { login } = useAuth();
     const [form] = Form.useForm();
     const [formData, setFormData] = useState<typeof INITIAL_FORMDATA>(INITIAL_FORMDATA);
 
-    const onSubmit = () => {
-        //login(formData);
+    const onSubmit = (submitData: any) => {
+        login(submitData);
     };
 
     return (

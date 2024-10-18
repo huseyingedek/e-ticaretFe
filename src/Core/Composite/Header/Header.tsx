@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LoginOutlined, UserAddOutlined, SearchOutlined, ShoppingCartOutlined, MenuOutlined } from '@ant-design/icons';
 import { Badge } from 'antd';
 import Navigation from './Navigation';
@@ -6,11 +6,18 @@ import LoginForm from '@/src/Core/UI/LoginForm';
 import RegisterForm from '@/src/Core/UI/RegisterForm';
 import Image from 'next/image';
 import Link from 'next/link';
+import useAuth from '@/src/Hooks/useAuth';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -46,7 +53,7 @@ const Header = () => {
       <div className='flex items-center justify-between px-4 pt-5 pb-5 w-full'>
         <div className='flex items-center'>
           <Link href="/">
-          <Image src="/images/gedek.jpg" alt="logo" width={144} height={36} className='w-24 lg:w-36 mb-2 pt-2' />
+            <Image src="/images/gedek.jpg" alt="logo" width={144} height={36} className='w-24 lg:w-36 mb-2 pt-2' />
           </Link>
         </div>
         <div className='flex-grow mx-4 hidden md:flex'>
@@ -60,13 +67,27 @@ const Header = () => {
           </div>
         </div>
         <div className='flex items-center md:gap-4'>
-          <a onClick={showLoginModal} className='flex items-center text-black hover:text-teal-400 text-lg'>
-            <LoginOutlined className='mr-1' /> <span className='hidden md:inline'>Giriş</span>
-          </a>
-          <span className='mx-2'>|</span>
-          <a onClick={showRegisterModal} className='flex items-center text-black hover: text-lg'>
-            <UserAddOutlined className='mr-1' /> <span className='hidden md:inline'>Kayıt Ol</span>
-          </a>
+          {isClient && isAuthenticated ? (
+            <>
+              <Link href="/profile" className='flex items-center text-black hover:text-teal-400 text-lg'>
+                <UserAddOutlined className='mr-1' /> <span className='hidden md:inline'>Profil</span>
+              </Link>
+              <span className='mx-2'>|</span>
+              <a onClick={logout} className='flex items-center text-black hover:text-teal-400 text-lg'>
+                <LoginOutlined className='mr-1' /> <span className='hidden md:inline'>Çıkış</span>
+              </a>
+            </>
+          ) : (
+            <>
+              <a onClick={showLoginModal} className='flex items-center text-black hover:text-teal-400 text-lg'>
+                <LoginOutlined className='mr-1' /> <span className='hidden md:inline'>Giriş</span>
+              </a>
+              <span className='mx-2'>|</span>
+              <a onClick={showRegisterModal} className='flex items-center text-black hover:text-teal-400 text-lg'>
+                <UserAddOutlined className='mr-1' /> <span className='hidden md:inline'>Kayıt Ol</span>
+              </a>
+            </>
+          )}
           <span className='mx-2'>|</span>
           <Badge count="1">
             <a href="#" className='flex items-center text-black hover:text-teal-400 text-lg gap-2'>

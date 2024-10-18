@@ -15,7 +15,7 @@ const ProductsDetails = () => {
                         <img src="/images/products/4.jpg" alt="product" className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
                     </div>
                 </div>
-                <div className='md:pl-5 flex-1 mr-52'>
+                <div className='md:pl-5 flex-1 mr-52 w-full'>
                     <h1 className='text-4xl font-bold pb-3'>İPHONE 16</h1>
                     <p className='text-lg pb-5 text-gray-500'>Lorem ipsum dolor a vel minima, neque, in esse nobis quibusdam accusamus culpa, nemo voluptatibus?</p>
                     <span className='text-4xl'>300$</span>

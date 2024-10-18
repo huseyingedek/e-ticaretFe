@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal } from "antd";
+import { useAuth } from "@/src/Hooks";
 
 const INITIAL_FORMDATA = {
     email: "",
     password: "",
-    confirmPassword: "",
     name: "",
-    surname: "",
-    phoneNumber: "",
+    lastName: "",
+    phone: "",
 };
 
 interface RegisterFormProps {
@@ -17,11 +17,12 @@ interface RegisterFormProps {
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ isModalOpen, handleOk, handleCancel }) => {
+    const { register } = useAuth();
     const [form] = Form.useForm();
     const [formData, setFormData] = useState<typeof INITIAL_FORMDATA>(INITIAL_FORMDATA);
 
     const onSubmit = () => {
-        //register(formData);
+        register(formData);
     };
 
     return (
@@ -38,7 +39,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ isModalOpen, handleOk, hand
                 autoComplete="off"
                 scrollToFirstError
                 onValuesChange={(changedValues, allValues) => {
-                    setFormData({ ...formData, ...allValues });
+                    const { confirmPassword, ...rest } = allValues;
+                    setFormData({ ...formData, ...rest });
                 }}
                 onFinishFailed={() => console.log("failed")}
             >
@@ -82,14 +84,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ isModalOpen, handleOk, hand
                     <Input size="large" />
                 </Form.Item>
                 <Form.Item
-                    name="surname"
+                    name="lastName"
                     label="Soyad"
                     rules={[{ required: true, message: "Soyadınızı Girin" }]}
                 >
                     <Input size="large" />
                 </Form.Item>
                 <Form.Item
-                    name="phoneNumber"
+                    name="phone"
                     label="Telefon Numarası"
                     rules={[{ required: true, message: "Telefon Numaranızı Girin" }]}
                 >
