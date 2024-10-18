@@ -1,6 +1,6 @@
 "use strict";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { message } from "antd";
 
 interface Product {
