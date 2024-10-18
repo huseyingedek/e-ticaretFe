@@ -32,7 +32,7 @@ const useAuth = () => {
 
   const login = async (submitData: { email: string; password: string }) => {
     try {
-      const response = await axios.post<LoginResponse>(`${process.env.API_URL}/api/auth/login`, submitData);
+      const response = await axios.post<LoginResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, submitData);
       const { token, refreshToken, expiresIn } = response.data;
 
       if (token && refreshToken && expiresIn) {
@@ -64,7 +64,7 @@ const useAuth = () => {
 
   const register = async (submitData: { email: string; password: string; name: string; lastName: string; phone: string; }) => {
     try {
-      const response = await axios.post<RegisterResponse>(`${process.env.API_URL}/api/auth/register`, submitData);
+      const response = await axios.post<RegisterResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, submitData);
       message.success(response.data.message);
       router.push("/");
 
@@ -83,7 +83,7 @@ const useAuth = () => {
         return;
       }
 
-      const response = await axios.post<{ message: string }>(`${process.env.API_URL}/api/auth/logout`, { token });
+      const response = await axios.post<{ message: string }>(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, { token });
       deleteCookie("token");
       deleteCookie("refreshToken");
 
