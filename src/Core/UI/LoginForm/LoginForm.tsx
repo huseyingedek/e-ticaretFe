@@ -15,9 +15,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ isModalOpen, handleOk, handleCanc
   const onSubmit = async (values: { email: string; password: string }) => {
     try {
       await login(values);
-      message.success('Giriş başarılı!');
-      handleOk(); // Modalı kapat
-      form.resetFields(); // Formu sıfırla
+      handleOk();
+      form.resetFields();
     } catch (error) {
       message.error('Giriş sırasında bir hata oluştu. Lütfen tekrar deneyin.');
     }

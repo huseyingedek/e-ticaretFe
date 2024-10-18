@@ -27,9 +27,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ isModalOpen, handleOk, hand
         setLoading(true);
         try {
             await register(formData);
-            message.success('Kayıt başarılı!');
-            handleOk(); // Modalı kapat
-            form.resetFields(); // Formu sıfırla
+            handleOk();
+            form.resetFields();
         } catch (error) {
             message.error('Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.');
         } finally {
@@ -113,7 +112,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ isModalOpen, handleOk, hand
                     type="primary"
                     size="large"
                     className="flex w-full text-center items-center justify-center mt-8"
-                    loading={loading} // Yüklenme durumu
+                    loading={loading}
                 >
                     Kayıt Ol
                 </Button>
