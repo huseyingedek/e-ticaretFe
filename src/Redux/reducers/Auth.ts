@@ -1,28 +1,32 @@
-import { SET_LOGIN, SET_LOGOUT } from "../types";
-
 interface AuthState {
-  isLoggedIn: boolean;
-  userInfo: {
-    name: string; 
-    email: string;
-  } | null;
+  token: string | null;
+  refreshToken: string | null;
+}
+
+interface AuthAction {
+  type: string;
+  payload?: { token: string; refreshToken: string };
 }
 
 const initialState: AuthState = {
-  isLoggedIn: false,
-  userInfo: null,
+  token: null,
+  refreshToken: null,
 };
 
-const authReducer = (state = initialState, action: any) => {
+const authReducer = (state = initialState, action: AuthAction): AuthState => {
   switch (action.type) {
-    case SET_LOGIN:
+    case 'LOGIN_USER':
       return {
         ...state,
-        isLoggedIn: true,
-        userInfo: action.payload,
+        token: action.payload?.token || null,
+        refreshToken: action.payload?.refreshToken || null,
       };
-    case SET_LOGOUT:
-      return initialState;
+    case 'LOGOUT_USER':
+      return {
+        ...state,
+        token: null,
+        refreshToken: null,
+      };
     default:
       return state;
   }

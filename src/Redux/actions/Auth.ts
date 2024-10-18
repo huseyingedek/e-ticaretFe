@@ -1,14 +1,8 @@
-import { SET_LOGIN, SET_LOGOUT } from "../types";
+export const loginUserRedux = (userData: { token: string; refreshToken: string }) => ({
+  type: 'LOGIN_USER',
+  payload: userData,
+});
 
-export const loginUserRedux = (data: any) => {
-  return {
-    type: SET_LOGIN,
-    payload: data,
-  };
-};
-
-export const logoutUserRedux = () => {
-  return {
-    type: SET_LOGOUT,
-  };
-};
+export const logoutUserRedux = () => ({
+  type: 'LOGOUT_USER',
+});

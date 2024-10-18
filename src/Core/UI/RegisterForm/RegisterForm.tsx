@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal } from "antd";
-import { useAuth } from "@/src/Hooks";
+import useAuth from "@/src/Hooks/useAuth";
 
 const INITIAL_FORMDATA = {
     email: "",
@@ -23,6 +23,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ isModalOpen, handleOk, hand
 
     const onSubmit = () => {
         register(formData);
+        handleOk();
     };
 
     return (
@@ -39,8 +40,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ isModalOpen, handleOk, hand
                 autoComplete="off"
                 scrollToFirstError
                 onValuesChange={(changedValues, allValues) => {
-                    const { confirmPassword, ...rest } = allValues;
-                    setFormData({ ...formData, ...rest });
+                    setFormData(allValues);
                 }}
                 onFinishFailed={() => console.log("failed")}
             >

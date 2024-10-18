@@ -6,13 +6,33 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { message } from "antd";
 
+interface LoginResponse {
+  token: string;
+  refreshToken: string;
+  expiresIn: string;
+  message: string;
+}
+
+interface RegisterResponse {
+  message: string;
+}
+
+interface ErrorResponse {
+  response?: {
+    data?: {
+      errors?: string[];
+      message?: string;
+    };
+  };
+}
+
 const useAuth = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
   const login = async (submitData: { email: string; password: string }) => {
     try {
-      const response = await axios.post(`${process.env.API_URL}/api/auth/login`, submitData);
+      const response = await axios.post<LoginResponse>(`${process.env.API_URL}/api/auth/login`, submitData);
       const { token, refreshToken, expiresIn } = response.data;
 
       if (token && refreshToken && expiresIn) {
@@ -36,7 +56,7 @@ const useAuth = () => {
         message.error("Kullanıcı bilgileri alınamadı.");
       }
     } catch (error) {
-      const errorMessage = (error as any).response?.data?.errors?.[0] || (error as any).response?.data?.message || "Bilgileri kontrol ederek tekrar deneyiniz";
+      const errorMessage = (error as ErrorResponse).response?.data?.errors?.[0] || (error as ErrorResponse).response?.data?.message || "Bilgileri kontrol ederek tekrar deneyiniz";
       message.error(errorMessage);
       console.error("Login error:", error);
     }
@@ -44,14 +64,14 @@ const useAuth = () => {
 
   const register = async (submitData: { email: string; password: string; name: string; lastName: string; phone: string; }) => {
     try {
-      const response = await axios.post(`${process.env.API_URL}/api/auth/register`, submitData);
+      const response = await axios.post<RegisterResponse>(`${process.env.API_URL}/api/auth/register`, submitData);
       message.success(response.data.message);
       router.push("/");
 
     } catch (error) {
-      const errorMessage = (error as any).response?.data?.errors?.[0] || (error as any).response?.data?.message || "Bilgileri kontrol ederek tekrar deneyiniz";
+      const errorMessage = (error as ErrorResponse).response?.data?.errors?.[0] || (error as ErrorResponse).response?.data?.message || "Bilgileri kontrol ederek tekrar deneyiniz";
       message.error(errorMessage);
-      console.error("Login error:", error);
+      console.error("Register error:", error);
     }
   };
 
@@ -63,15 +83,15 @@ const useAuth = () => {
         return;
       }
 
-      const response = await axios.post(`${process.env.API_URL}/api/auth/logout`, { token });
+      const response = await axios.post<{ message: string }>(`${process.env.API_URL}/api/auth/logout`, { token });
       deleteCookie("token");
       deleteCookie("refreshToken");
 
       dispatch(logoutUserRedux());
       message.success(response.data.message);
-      router.push("/");
+      router.push("/login");
     } catch (error) {
-      const errorMessage = (error as any).response?.data?.message || "Çıkış yaparken bir hata oluştu.";
+      const errorMessage = (error as ErrorResponse).response?.data?.message || "Çıkış yaparken bir hata oluştu.";
       message.error(errorMessage);
       console.error("Logout error:", error);
     }

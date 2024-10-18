@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tabs, Select, Space } from 'antd';
+import Image from 'next/image';
 
 const ProductsDetails = () => {
     return (
@@ -9,10 +10,10 @@ const ProductsDetails = () => {
                 <img src='/images/products/5.jpg' alt='product' className='rounded-lg cursor-pointer max-w-lg w-full h-auto' />
 
                     <div className='flex gap-x-4 pt-4 pb-5 overflow-x-auto'>
-                        <img src="/images/products/1.jpg" alt="product" className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
-                        <img src="/images/products/2.jpg" alt="product" className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
-                        <img src="/images/products/3.jpg" alt="product" className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
-                        <img src="/images/products/4.jpg" alt="product" className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
+                        <Image src="/images/products/1.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
+                        <Image src="/images/products/2.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
+                        <Image src="/images/products/3.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
+                        <Image src="/images/products/4.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
                     </div>
                 </div>
                 <div className='md:pl-5 flex-1 mr-52 w-full'>

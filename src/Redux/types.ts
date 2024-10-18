@@ -1,3 +1,3 @@
 //Login
-export const SET_LOGIN = "SET_LOGIN";
-export const SET_LOGOUT = "SET_LOGOUT";
+export const LOGIN_USER = "LOGIN_USER";
+export const LOGOUT_USER = "LOGOUT_USER";
