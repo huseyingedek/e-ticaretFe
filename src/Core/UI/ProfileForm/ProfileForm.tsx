@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input } from 'antd';
+import { Form, Input, Spin } from 'antd';
 import { useFetchApi } from '@/src/Hooks';
 import { getCookie } from "cookies-next";
 
@@ -18,7 +18,7 @@ interface Profile {
 
 const ProfileForm: React.FC<ProfileFormProps> = ({ formType, id }) => {
     const token = getCookie("token");
-    const [getProfile, response] = useFetchApi<Profile>(`/api/users/profile/${id}`);
+    const [getProfile, response, loading] = useFetchApi<Profile>(`/api/users/profile/${id}`);
     const [profile, setProfile] = useState<Profile>({});
 
     useEffect(() => {
@@ -36,34 +36,38 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ formType, id }) => {
     return (
         <div className='flex justify-center'>
             <div className='space-y-4 w-full max-w-md'>
-                {formType === 'profile' && (
-                    <Form layout="vertical" initialValues={profile} key={profile._id}>
-                        <Form.Item label="Ad" name="name">
-                            <Input 
-                                value={profile.name || ''} 
-                                onChange={(e) => setProfile({ ...profile, name: e.target.value })} 
-                            />
-                        </Form.Item>
-                        <Form.Item label="Soyad" name="lastName">
-                            <Input 
-                                value={profile.lastName || ''} 
-                                onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} 
-                            />
-                        </Form.Item>
-                        <Form.Item label="Email" name="email">
-                            <Input 
-                                type="email" 
-                                value={profile.email || ''} 
-                                onChange={(e) => setProfile({ ...profile, email: e.target.value })} 
-                            />
-                        </Form.Item>
-                        <Form.Item label="Phone" name="phone">
-                            <Input 
-                                value={profile.phone || ''} 
-                                onChange={(e) => setProfile({ ...profile, phone: e.target.value })} 
-                            />
-                        </Form.Item>
-                    </Form>
+                {loading ? (
+                    <Spin size="large" />
+                ) : (
+                    formType === 'profile' && (
+                        <Form layout="vertical" initialValues={profile} key={profile._id}>
+                            <Form.Item label="Ad" name="name">
+                                <Input 
+                                    value={profile.name || ''} 
+                                    onChange={(e) => setProfile({ ...profile, name: e.target.value })} 
+                                />
+                            </Form.Item>
+                            <Form.Item label="Soyad" name="lastName">
+                                <Input 
+                                    value={profile.lastName || ''} 
+                                    onChange={(e) => setProfile({ ...profile, lastName: e.target.value })} 
+                                />
+                            </Form.Item>
+                            <Form.Item label="Email" name="email">
+                                <Input 
+                                    type="email" 
+                                    value={profile.email || ''} 
+                                    onChange={(e) => setProfile({ ...profile, email: e.target.value })} 
+                                />
+                            </Form.Item>
+                            <Form.Item label="Phone" name="phone">
+                                <Input 
+                                    value={profile.phone || ''} 
+                                    onChange={(e) => setProfile({ ...profile, phone: e.target.value })} 
+                                />
+                            </Form.Item>
+                        </Form>
+                    )
                 )}
                 {/* Adres ve Siparişler formları buraya eklenecek */}
             </div>
