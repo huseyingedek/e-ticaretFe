@@ -5,7 +5,11 @@ import { useFetchApi } from '@/src/Hooks';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 
 const BestSellers = () => {
-    let [fetchProducts, response] = useFetchApi("/api/products/listproducts");
+    interface ResponseType {
+        products: Array<{ _id: string; image: StaticImport; name: string; price: string }>;
+    }
+
+    let [fetchProducts, response] = useFetchApi<ResponseType>("/api/products/listproducts");
     let products = response?.products;
 
     useEffect(() => {

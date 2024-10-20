@@ -1,50 +1,34 @@
 import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
 
-type FetchReturn = [(apiPathFirst?: any) => any, any, boolean];
+type FetchReturn<T> = [(apiPathFirst?: string) => Promise<void>, T | null, boolean];
 
-interface fetchApiState {
+interface FetchApiState<T> {
   loading: boolean;
-  data: any;
-  error: any;
+  data: T | null;
+  error: string | null;
 }
 
-const useFetchApi = (apiPath?: string): FetchReturn => {
-  const [responseData, setResponseData] = useState<fetchApiState>({
+const useFetchApi = <T>(apiPath?: string): FetchReturn<T> => {
+  const [responseData, setResponseData] = useState<FetchApiState<T>>({
     loading: false,
     error: null,
     data: null,
   });
 
-  const fetchApi = async (apiPathFirst: string) => {
+  const fetchApi = async (apiPathFirst?: string) => {
     setResponseData({ ...responseData, loading: true });
     const requestOptions = {
       url: `${process.env.NEXT_PUBLIC_API_URL}${apiPathFirst || apiPath}`,
       method: "GET",
     };
 
-    const response = await axios(requestOptions)
-      .then((res: AxiosResponse) => res)
-      .catch((err) => err.toJSON());
-    if (response.message !== undefined) {
-      setResponseData({
-        loading: false,
-        error: response.message,
-        data: null,
-      });
-
-      return { data: null, error: response.message, loading: false };
+    try {
+      const response: AxiosResponse<T> = await axios(requestOptions);
+      setResponseData({ data: response.data, error: null, loading: false });
+    } catch (error) {
+      setResponseData({ data: null, error: (error as Error).message, loading: false });
     }
-    setResponseData({
-      loading: false,
-      error: null,
-      data: response.data,
-    });
-    return {
-      loading: false,
-      error: null,
-      data: response.data,
-    };
   };
 
   return [fetchApi, responseData.data, responseData.loading];

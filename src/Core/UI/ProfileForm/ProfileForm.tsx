@@ -9,13 +9,26 @@ interface ProfileFormProps {
 
 const ProfileForm: React.FC<ProfileFormProps> = ({ formType, userId }) => {
     const [getProfile, response] = useFetchApi(`/api/users/profile/${userId}`);
-    let profile = response?.profile;
+    interface ApiResponse {
+        profile?: {
+            firstName?: string;
+            lastName?: string;
+            email?: string;
+            phone?: string;
+            addressLine1?: string;
+            addressLine2?: string;
+            city?: string;
+            postalCode?: string;
+        };
+    }
+
+    const profile = (response as ApiResponse)?.profile;
 
     useEffect(() => {
         if (userId) {
             getProfile();
         }
-    }, [userId]);
+    }, [userId, getProfile]);
 
     return (
         <div className='flex justify-center'>

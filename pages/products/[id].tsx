@@ -18,8 +18,8 @@ interface Product {
 const ProductsDetails = () => {
     const router = useRouter();
     const { id } = router.query;
-    const [getPackages, respose] = useFetchApi("/api/products/listproducts/" + id);
-    let productData = respose?.products.find((product: { _id: string | string[] | undefined; }) => product._id === id);
+    const [getPackages, respose] = useFetchApi<{ products: Product[] }>("/api/products/listproducts/" + id);
+    let productData = respose?.products.find((product: Product) => product._id === id);
     useEffect(() => {
         !id && router.push("/home");
         getPackages();
@@ -29,10 +29,10 @@ const ProductsDetails = () => {
         <div className='mt-24 mb-48 px-4 md:px-16 lg:px-28'>
             <div className='flex flex-col md:flex-row'>
                 <div className='flex-1 h-auto'>
-                    <img src={productData?.image} alt={productData?.name} className='rounded-lg cursor-pointer max-w-lg w-full h-auto' />
+                    <img src={productData?.image || '/images/products/2.jpg'} alt={productData?.name} className='rounded-lg cursor-pointer max-w-lg w-full h-auto' />
 
                     <div className='flex gap-x-4 pt-4 pb-5 overflow-x-auto'>
-                        <Image src={productData?.image} alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
+                        <Image src={productData?.image || '/images/products/2.jpg'} alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
                         <Image src="/images/products/2.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
                         <Image src="/images/products/3.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
                         <Image src="/images/products/4.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
