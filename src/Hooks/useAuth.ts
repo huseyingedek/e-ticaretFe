@@ -89,7 +89,7 @@ const useAuth = () => {
 
       dispatch(logoutUserRedux());
       message.success(response.data.message);
-      router.push("/login");
+      router.push("/");
     } catch (error) {
       const errorMessage = (error as ErrorResponse).response?.data?.message || "Çıkış yaparken bir hata oluştu.";
       message.error(errorMessage);

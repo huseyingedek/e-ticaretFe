@@ -5,7 +5,7 @@ interface AuthState {
 
 interface AuthAction {
   type: string;
-  payload?: { token: string; refreshToken: string };
+  payload?: { token: string; refreshToken: string; userId?: string };
 }
 
 const initialState: AuthState = {

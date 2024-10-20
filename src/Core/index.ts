@@ -5,4 +5,6 @@ export { default as LoginForm } from "@/src/Core/UI/LoginForm";
 export { default as StoreSection } from "@/src/Core/UI/StoreSection";
 export { default as Carousel } from "@/src/Core/UI/Carousel";
 export { default as BestSellers } from "@/src/Core/UI/BestSellers";
+export { default as ProfileForm } from "@/src/Core/UI/ProfileForm";
+
 

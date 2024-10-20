@@ -15,6 +15,7 @@ const Header = () => {
   const { isAuthenticated, logout } = useAuth();
   const [isClient, setIsClient] = useState(false);
 
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -69,7 +70,7 @@ const Header = () => {
         <div className='flex items-center md:gap-4'>
           {isClient && isAuthenticated ? (
             <>
-              <Link href="/profile" className='flex items-center text-black hover:text-teal-400 text-lg'>
+              <Link href={`/profile`} className='flex items-center text-black hover:text-teal-400 text-lg'>
                 <UserOutlined className='mr-1' /> <span className='hidden md:inline'>Profil</span>
               </Link>
               <span className='mx-2'>|</span>
