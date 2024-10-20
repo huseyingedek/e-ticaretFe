@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tabs, Select, Space } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -20,22 +20,34 @@ const ProductsDetails = () => {
     const { id } = router.query;
     const [getPackages, respose] = useFetchApi<{ products: Product[] }>("/api/products/listproducts/" + id);
     const productData = respose?.products.find((product: Product) => product._id === id);
+    
+    const [selectedImage, setSelectedImage] = useState(productData?.image || '/images/products/2.jpg');
 
-useEffect(() => {
-    getPackages();
-}, [id, router]);
+    useEffect(() => {
+        getPackages();
+    }, [id, router]);
+
+    useEffect(() => {
+        if (productData) {
+            setSelectedImage(productData.image);
+        }
+    }, [productData]);
+
+    const handleImageClick = (image: string) => {
+        setSelectedImage(image);
+    };
 
     return (
         <div className='mt-24 mb-48 px-4 md:px-16 lg:px-28'>
             <div className='flex flex-col md:flex-row'>
                 <div className='flex-1 h-auto'>
-                    <Image src={productData?.image || '/images/products/2.jpg'} alt="product" width={500} height={500} className='rounded-lg cursor-pointer max-w-lg w-full h-auto' />
+                    <Image src={selectedImage} alt="product" width={500} height={500} className='rounded-lg cursor-pointer max-w-lg w-full h-auto' />
 
                     <div className='flex gap-x-4 pt-4 pb-5 overflow-x-auto'>
-                        <Image src={productData?.image || '/images/products/2.jpg'} alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
-                        <Image src="/images/products/2.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
-                        <Image src="/images/products/3.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
-                        <Image src="/images/products/4.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' />
+                        <Image src={productData?.image || '/images/products/2.jpg'} alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' onClick={() => handleImageClick(productData?.image || '/images/products/2.jpg')} />
+                        <Image src="/images/products/2.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' onClick={() => handleImageClick('/images/products/2.jpg')} />
+                        <Image src="/images/products/3.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' onClick={() => handleImageClick('/images/products/3.jpg')} />
+                        <Image src="/images/products/4.jpg" alt="product" width={500} height={500} className='rounded-lg cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-200 w-20 h-20' onClick={() => handleImageClick('/images/products/4.jpg')} />
                     </div>
                 </div>
                 <div className='md:pl-5 flex-1 mr-52 w-full'>
