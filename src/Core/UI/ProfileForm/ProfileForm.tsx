@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Spin } from 'antd';
+import { Form, Input, Spin, Button, message } from 'antd';
 import { useFetchApi } from '@/src/Hooks';
 import { getCookie } from "cookies-next";
+import axios from 'axios';
 
 interface ProfileFormProps {
     formType: 'profile' | 'address' | 'orders';
@@ -32,6 +33,30 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ formType, id }) => {
             setProfile(response);
         }
     }, [response]);
+
+    const updateProfile = async () => {
+        const { _id, ...profileData } = profile;
+        const dataToSend = {
+            name: profileData.name,
+            lastName: profileData.lastName,
+            email: profileData.email,
+            phone: profileData.phone,
+        };
+    
+        try {
+            const result = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/api/users/profileUpdate/${_id}`, dataToSend, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+            message.success(result.data.message || 'Profil güncellendi!');
+        } catch (error) {
+            message.error('Güncelleme sırasında bir hata oluştu.');
+            console.error('Update error:', error);
+        }
+    };
+    
 
     return (
         <div className='flex justify-center'>
@@ -65,6 +90,11 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ formType, id }) => {
                                     value={profile.phone || ''} 
                                     onChange={(e) => setProfile({ ...profile, phone: e.target.value })} 
                                 />
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type="primary" onClick={updateProfile}>
+                                    Güncelle
+                                </Button>
                             </Form.Item>
                         </Form>
                     )
