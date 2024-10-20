@@ -7,6 +7,12 @@ import RegisterForm from '@/src/Core/UI/RegisterForm';
 import Image from 'next/image';
 import Link from 'next/link';
 import useAuth from '@/src/Hooks/useAuth';
+import { getCookie } from 'cookies-next';
+import { jwtDecode } from 'jwt-decode';
+
+interface DecodedToken {
+  id: string;
+}
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,11 +20,18 @@ const Header = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const { isAuthenticated, logout } = useAuth();
   const [isClient, setIsClient] = useState(false);
-
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     setIsClient(true);
+    const token = getCookie('token');
+
+    if (token) {
+      const decodedToken = jwtDecode<DecodedToken>(token as string);
+      setUserId(decodedToken.id);
+    }
   }, []);
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -70,7 +83,7 @@ const Header = () => {
         <div className='flex items-center md:gap-4'>
           {isClient && isAuthenticated ? (
             <>
-              <Link href={`/profile`} className='flex items-center text-black hover:text-teal-400 text-lg'>
+              <Link href={`/profile/${userId}`} className='flex items-center text-black hover:text-teal-400 text-lg'>
                 <UserOutlined className='mr-1' /> <span className='hidden md:inline'>Profil</span>
               </Link>
               <span className='mx-2'>|</span>

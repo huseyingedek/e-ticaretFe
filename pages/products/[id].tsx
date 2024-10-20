@@ -20,7 +20,6 @@ const ProductsDetails = () => {
     const { id } = router.query;
     const [getPackages, respose] = useFetchApi<{ products: Product[] }>("/api/products/listproducts/" + id);
     const productData = respose?.products.find((product: Product) => product._id === id);
-    
     const [selectedImage, setSelectedImage] = useState(productData?.image || '/images/products/2.jpg');
 
     useEffect(() => {

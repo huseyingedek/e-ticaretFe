@@ -1,6 +1,6 @@
-export const loginUserRedux = (userData: { token: string; refreshToken: string }) => ({
+export const loginUserRedux =  (data: any) => ({
   type: 'LOGIN_USER',
-  payload: userData,
+  payload: data,
 });
 
 export const logoutUserRedux = () => ({

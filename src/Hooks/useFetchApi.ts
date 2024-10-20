@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
 
-type FetchReturn<T> = [(apiPathFirst?: string) => Promise<void>, T | null, boolean];
+type FetchReturn<T> = [(apiPathFirst?: string, headers?: Record<string, string>) => Promise<void>, T | null, boolean];
 
 interface FetchApiState<T> {
   loading: boolean;
@@ -16,11 +16,12 @@ const useFetchApi = <T>(apiPath?: string): FetchReturn<T> => {
     data: null,
   });
 
-  const fetchApi = async (apiPathFirst?: string) => {
+  const fetchApi = async (apiPathFirst?: string, headers?: Record<string, string>) => {
     setResponseData({ ...responseData, loading: true });
     const requestOptions = {
       url: `${process.env.NEXT_PUBLIC_API_URL}${apiPathFirst || apiPath}`,
       method: "GET",
+      headers: headers || {},
     };
 
     try {

@@ -9,7 +9,7 @@ type TabPosition = 'left' | 'right' | 'top' | 'bottom';
 const Profile: React.FC = () => {
     const [tabPosition, setTabPosition] = useState<TabPosition>('left');
     const router = useRouter();
-    const { userId } = router.query;
+    const { id } = router.query;
 
     useEffect(() => {
         const handleResize = () => {
@@ -57,7 +57,7 @@ const Profile: React.FC = () => {
                             </span>
                         ),
                         key: '1',
-                        children: <ProfileForm formType="profile" userId={userId} />,
+                        children: <ProfileForm formType="profile" id={id} />,
                     },
                     {
                         label: (
@@ -67,7 +67,7 @@ const Profile: React.FC = () => {
                             </span>
                         ),
                         key: '2',
-                        children: <ProfileForm formType="address" userId={userId} />,
+                        children: <ProfileForm formType="address" id={id} />,
                     },
                     {
                         label: (
@@ -77,7 +77,7 @@ const Profile: React.FC = () => {
                             </span>
                         ),
                         key: '3',
-                        children: <ProfileForm formType="orders" userId={userId} />,
+                        children: <ProfileForm formType="orders" id={id} />,
                     },
                 ]}
             />
