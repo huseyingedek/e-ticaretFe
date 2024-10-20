@@ -9,7 +9,7 @@ type UploadApiResponse<T> = {
 
 type UploadApiFunction<T> = (data: FormData) => Promise<void>;
 
-export const useCustomUploadMutateApi = <T>(url: string): [UploadApiFunction<T>, UploadApiResponse<T>] => {
+const useCustomUploadMutateApi = <T>(url: string): [UploadApiFunction<T>, UploadApiResponse<T>] => {
   const [response, setResponse] = useState<UploadApiResponse<T>>({
     data: null,
     error: null,
@@ -28,3 +28,5 @@ export const useCustomUploadMutateApi = <T>(url: string): [UploadApiFunction<T>,
 
   return [uploadApi, response];
 };
+
+export default useCustomUploadMutateApi;
