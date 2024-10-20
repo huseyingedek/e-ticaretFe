@@ -21,16 +21,19 @@ const Header = () => {
   const { isAuthenticated, logout } = useAuth();
   const [isClient, setIsClient] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
-
+  
   useEffect(() => {
     setIsClient(true);
     const token = getCookie('token');
-
+  
     if (token) {
       const decodedToken = jwtDecode<DecodedToken>(token as string);
       setUserId(decodedToken.id);
+    } else {
+      setUserId(null);
     }
-  }, []);
+  }, [isAuthenticated]);
+  
 
 
   const toggleMenu = () => {

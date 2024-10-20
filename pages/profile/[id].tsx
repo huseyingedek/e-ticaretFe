@@ -28,6 +28,12 @@ const Profile: React.FC = () => {
         };
     }, []);
 
+    useEffect(() => {
+        if (!id) {
+            router.push('/');
+        }
+    }, [id, router]);
+
     return (
         <div className='mt-24 mb-20 px-4 md:px-20 lg:px-40 xl:px-96'>
             <style jsx>{`
@@ -57,7 +63,7 @@ const Profile: React.FC = () => {
                             </span>
                         ),
                         key: '1',
-                        children: <ProfileForm formType="profile" id={id} />,
+                        children: id ? <ProfileForm formType="profile" id={id} /> : <div>Loading...</div>,
                     },
                     {
                         label: (
@@ -67,7 +73,7 @@ const Profile: React.FC = () => {
                             </span>
                         ),
                         key: '2',
-                        children: <ProfileForm formType="address" id={id} />,
+                        children: id ? <ProfileForm formType="address" id={id} /> : <div>Loading...</div>,
                     },
                     {
                         label: (
@@ -77,7 +83,7 @@ const Profile: React.FC = () => {
                             </span>
                         ),
                         key: '3',
-                        children: <ProfileForm formType="orders" id={id} />,
+                        children: id ? <ProfileForm formType="orders" id={id} /> : <div>Loading...</div>,
                     },
                 ]}
             />
